@@ -16,8 +16,11 @@ public class Achievement {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "level")
+    private int level;
+
     @OneToMany(mappedBy = "achievementId",
-                cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
     private List<Quest> questList;
 
     @ManyToMany(mappedBy = "openAchList")
@@ -55,6 +58,14 @@ public class Achievement {
 
     public void setQuestList(List<Quest> questList) {
         this.questList = questList;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public void addQuest(Quest theQuest) {
