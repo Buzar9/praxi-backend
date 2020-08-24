@@ -1,5 +1,6 @@
 package com.buzar.praxibackend.repository;
 
+import com.buzar.praxibackend.entity.File;
 import com.buzar.praxibackend.entity.Realization;
 
 import java.util.List;
