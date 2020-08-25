@@ -17,14 +17,14 @@ public class UserServiceImpl implements UserService {
     public void addUser(User tempUser) {
 
         tempUser.setUserId(0);
-        userRepositoryImpl.saveOrUpdate(tempUser);
+        userRepositoryImpl.save(tempUser);
     }
 
     @Override
     @Transactional
-    public void updateUser(int userId, User tempUser) {
+    public String updateUser(int userId, User tempUser) {
 
         tempUser.setUserId(userId);
-        userRepositoryImpl.saveOrUpdate(tempUser);
+        return userRepositoryImpl.update(tempUser);
     }
 }

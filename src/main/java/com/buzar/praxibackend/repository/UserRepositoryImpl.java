@@ -39,10 +39,23 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     @Transactional
-    public void saveOrUpdate(User tempUser) {
+    public void save(User tempUser) {
 
         Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.saveOrUpdate(tempUser);
+        currentSession.save(tempUser);
+    }
+
+    @Override
+    @Transactional
+    public String update(User tempUser) {
+
+        try {
+            Session currentSession = entityManager.unwrap(Session.class);
+            currentSession.update(tempUser);
+            return "Success";
+        } catch (Exception exc) {
+            return "Data doesn't exist";
+        }
     }
 
     @Override

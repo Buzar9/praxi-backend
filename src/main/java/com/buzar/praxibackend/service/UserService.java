@@ -6,5 +6,5 @@ public interface UserService {
 
     void addUser(User tempUser);
 
-    void updateUser(int userId, User tempUser);
+    String updateUser(int userId, User tempUser);
 }

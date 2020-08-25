@@ -40,10 +40,15 @@ public class UserController {
     }
 
     @PutMapping("{userId}")
-    public void updateUser(@PathVariable int userId,
+    public String updateUser(@PathVariable int userId,
                            @RequestBody User tempUser) {
+        try {
+            userServiceImpl.updateUser(userId, tempUser);
+        } catch (Exception exc) {
+            return "Data doesn't exist";
+        }
 
-        userServiceImpl.updateUser(userId, tempUser);
+        return userServiceImpl.updateUser(userId, tempUser);
     }
 
     @DeleteMapping("{userId}")

@@ -10,7 +10,9 @@ public interface UserRepository{
 
     User findByUserId(int userId);
 
-    void saveOrUpdate(User user);
+    void save(User user);
+
+    String update (User user);
 
     void deleteUser(int userId);
 }
