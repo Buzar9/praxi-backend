@@ -32,25 +32,41 @@ public class RealizationController {
     }
 
     @PostMapping("/user/{userId}/quest/{questId}")
-    public void saveRealization(@PathVariable int userId,
+    public String saveRealization(@PathVariable int userId,
                                 @PathVariable int questId,
                                 @RequestBody Realization tempRealization) {
 
         tempRealization.setRealizationId(0);
-        realizationRepositoryImpl.saveOrUpdate(tempRealization, userId, questId);
+        try {
+            realizationRepositoryImpl.save(tempRealization, userId, questId);
+        } catch (Exception exc) {
+            return "Data does't exist";
+        }
+
         realizationRepositoryImpl.addRelationQuestReal(tempRealization.getRealizationId(), questId);
         realizationRepositoryImpl.setRealizationData(tempRealization.getRealizationId());
+
+        return realizationRepositoryImpl.save(tempRealization, userId, questId);
     }
 
+
+
     @PutMapping("/{realizationId}/user/{userId}/quest/{questId}")
-    public void updateRealization(@PathVariable int realizationId,
+    public String updateRealization(@PathVariable int realizationId,
                                   @PathVariable int userId,
                                   @PathVariable int questId,
                                   @RequestBody Realization tempRealization){
 
         tempRealization.setRealizationId(realizationId);
-        realizationRepositoryImpl.saveOrUpdate(tempRealization, userId, questId);
+        try {
+            realizationRepositoryImpl.update(tempRealization, userId, questId);
+        } catch (Exception exc) {
+            return "Data doesn't exist";
+        }
+
         realizationRepositoryImpl.setRealizationData(realizationId);
+
+        return realizationRepositoryImpl.update(tempRealization, userId, questId);
     }
 
     @DeleteMapping("/{realizationId}")

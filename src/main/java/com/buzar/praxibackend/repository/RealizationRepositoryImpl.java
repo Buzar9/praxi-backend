@@ -40,17 +40,36 @@ public class RealizationRepositoryImpl implements RealizationRepository{
     }
 
     @Override
-    public void saveOrUpdate(Realization tempRealization, int userId, int questId) {
+    public String save(Realization tempRealization, int userId, int questId) {
 
-        Session currentSession = entityManager.unwrap(Session.class);
+        try{
+            Session currentSession = entityManager.unwrap(Session.class);
+            Quest tempQuest = currentSession.get(Quest.class, questId);
+            User tempUser = currentSession.get(User.class, userId);
+            tempRealization.setQuestId(tempQuest);
+            tempRealization.setUserId(tempUser);
+            currentSession.save(tempRealization);
+            return "success";
+        } catch (Exception exc) {
+            return "Data doesn't exist";
+        }
+    }
 
-        Quest tempQuest = currentSession.get(Quest.class, questId);
-        User tempUser = currentSession.get(User.class, userId);
+    @Override
+    public String update(Realization tempRealization, int userId, int questId) {
 
-        tempRealization.setQuestId(tempQuest);
-        tempRealization.setUserId(tempUser);
+        try{
+            Session currentSession = entityManager.unwrap(Session.class);
+            Quest tempQuest = currentSession.get(Quest.class, questId);
+            User tempUser = currentSession.get(User.class, userId);
+            tempRealization.setQuestId(tempQuest);
+            tempRealization.setUserId(tempUser);
+            currentSession.update(tempRealization);
+            return "Success";
+        } catch (Exception exc) {
+            return "Data doesn't exist";
+        }
 
-        currentSession.saveOrUpdate(tempRealization);
     }
 
     @Override
@@ -59,24 +78,32 @@ public class RealizationRepositoryImpl implements RealizationRepository{
     }
 
     @Override
-    public void addRelationQuestReal(int realId, int questId) {
+    public String addRelationQuestReal(int realId, int questId) {
 
-        Session currentSession = entityManager.unwrap(Session.class);
+        try {
+            Session currentSession = entityManager.unwrap(Session.class);
+            Quest tempQuest = currentSession.get(Quest.class, questId);
+            Realization tempRealization = currentSession.get(Realization.class, realId);
+            tempQuest.addRealization(tempRealization);
+            return "Success";
+        } catch (NullPointerException exc) {
+            return "Data doesn't exist";
+        }
 
-        Quest tempQuest = currentSession.get(Quest.class, questId);
-        Realization tempRealization = currentSession.get(Realization.class, realId);
-
-        tempQuest.addRealization(tempRealization);
     }
 
     @Override
-    public void setRealizationData(int realId) {
+    public String setRealizationData(int realId) {
 
-        Session currentSession = entityManager.unwrap(Session.class);
-        Realization tempRealization = currentSession.get(Realization.class, realId);
-
-        tempRealization.setUserId(tempRealization.getUserId());
-        tempRealization.setUsername(tempRealization.getUserId());
+        try {
+            Session currentSession = entityManager.unwrap(Session.class);
+            Realization tempRealization = currentSession.get(Realization.class, realId);
+            tempRealization.setUserId(tempRealization.getUserId());
+            tempRealization.setUsername(tempRealization.getUserId());
+            return "Success";
+        } catch (NullPointerException exc) {
+            return "Data doesn't exist";
+        }
     }
 
     @Override

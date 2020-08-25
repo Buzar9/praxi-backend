@@ -11,13 +11,15 @@ public interface RealizationRepository {
 
     Realization findById(int realizationId);
 
-    void saveOrUpdate(Realization tempRealization, int userId, int questId);
+    String save(Realization tempRealization, int userId, int questId);
+
+    String update(Realization tempRealization, int userId, int questId);
 
     void addFile(File tempFile);
 
-    void addRelationQuestReal(int realId, int questId);
+    String addRelationQuestReal(int realId, int questId);
 
-    void setRealizationData(int realId);
+    String setRealizationData(int realId);
 
     void addFile(int realId, int fileId);
 
