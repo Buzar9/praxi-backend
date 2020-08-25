@@ -40,7 +40,7 @@ public class RealizationController {
         try {
             realizationRepositoryImpl.save(tempRealization, userId, questId);
         } catch (Exception exc) {
-            return "Data does't exist";
+            return "Data doesn't exist";
         }
 
         realizationRepositoryImpl.addRelationQuestReal(tempRealization.getRealizationId(), questId);
