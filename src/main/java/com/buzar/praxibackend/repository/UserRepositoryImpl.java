@@ -9,16 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-@Transactional
 public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public List<User> findAll() {
 
         Session currentSession = entityManager.unwrap(Session.class);
@@ -29,6 +28,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public User findByUserId(int userId) {
 
         Session currentSession = entityManager.unwrap(Session.class);
@@ -38,17 +38,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findByUsername(String tempUsername) {
-
-        Session currentSession = entityManager.unwrap(Session.class);
-        Query<User> query = currentSession.createQuery("from User where username=:usernameParameter");
-        query.setParameter("usernameParameter", tempUsername);
-        User tempUser = query.getSingleResult();
-
-        return Optional.ofNullable(tempUser);
-    }
-
-    @Override
+    @Transactional
     public void saveOrUpdate(User tempUser) {
 
         Session currentSession = entityManager.unwrap(Session.class);
@@ -56,6 +46,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public void deleteUser(int userId) {
 
         Session currentSession = entityManager.unwrap(Session.class);
