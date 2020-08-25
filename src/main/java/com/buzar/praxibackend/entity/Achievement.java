@@ -1,5 +1,7 @@
 package com.buzar.praxibackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +25,11 @@ public class Achievement {
             cascade = CascadeType.ALL)
     private List<Quest> questList;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "openAchList")
     private List<User> openUserList;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "finishedAchList")
     private List<User> finishedUserList;
 
