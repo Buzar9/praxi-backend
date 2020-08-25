@@ -119,7 +119,7 @@ public class User {
 
     public void removeOpenAch(Achievement theAchievement) {
 
-        if (openAchList.contains(theAchievement)) openAchList.removeIf(Objects::nonNull);
+        if (openAchList.contains(theAchievement)) openAchList.remove(theAchievement);
     }
 
     public List<Achievement> getFinishedAchList() {
