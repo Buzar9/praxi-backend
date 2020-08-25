@@ -10,9 +10,7 @@ public interface UserRepository{
     List<User> findAll();
 
     User findByUserId(int userId);
-
-    Optional<User> findByUsername(String tempUsername);
-
+    
     void saveOrUpdate(User user);
 
     void deleteUser(int userId);
