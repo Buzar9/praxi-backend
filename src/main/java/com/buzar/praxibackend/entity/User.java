@@ -133,7 +133,7 @@ public class User {
     public void addFinishedAch(Achievement theAchievement) {
 
         if (finishedAchList == null) finishedAchList = new ArrayList<>();
-        finishedAchList.add(theAchievement);
+        if (!finishedAchList.contains(theAchievement)) finishedAchList.add(theAchievement);
     }
 
     public void removeFinishedAch(Achievement theAchievement) {
