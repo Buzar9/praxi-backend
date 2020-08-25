@@ -62,7 +62,7 @@ public class AchievementRepositoryImpl implements AchievementRepository {
     }
 
     @Override
-    public void removeAchievementFromUser(int achievementId, int userId) {
+    public String removeAchievementFromUser(int achievementId, int userId) {
 
         try {
             Session currentSession = entityManager.unwrap(Session.class);
@@ -71,8 +71,9 @@ public class AchievementRepositoryImpl implements AchievementRepository {
             tempUser.removeOpenAch(tempAchievement);
             currentSession.saveOrUpdate(tempUser);
             currentSession.saveOrUpdate(tempAchievement);
+            return "Success";
         } catch (NullPointerException exc) {
-            System.out.println("Niepoprawne dane");
+            return "Data doesn't exist";
         }
 
     }

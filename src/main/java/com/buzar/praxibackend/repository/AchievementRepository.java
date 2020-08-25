@@ -14,7 +14,7 @@ public interface AchievementRepository {
 
     String addAchievementToUser(int achievementId, int userId);
 
-    void removeAchievementFromUser(int achievementId, int userId);
+    String removeAchievementFromUser(int achievementId, int userId);
 
     void finishAchievementForUser(int achievementId, int userId);
 
