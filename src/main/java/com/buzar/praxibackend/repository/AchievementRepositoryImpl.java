@@ -46,25 +46,35 @@ public class AchievementRepositoryImpl implements AchievementRepository {
     }
 
     @Override
-    public void addAchievementToUser(int achievementId, int userId) {
+    public String addAchievementToUser(int achievementId, int userId) {
 
-        Session currentSession = entityManager.unwrap(Session.class);
-        User tempUser = currentSession.get(User.class, userId);
-        Achievement tempAchievement = currentSession.get(Achievement.class, achievementId);
-        tempUser.addOpenAch(tempAchievement);
-        currentSession.saveOrUpdate(tempUser);
-        currentSession.saveOrUpdate(tempAchievement);
+        try {
+            Session currentSession = entityManager.unwrap(Session.class);
+            User tempUser = currentSession.get(User.class, userId);
+            Achievement tempAchievement = currentSession.get(Achievement.class, achievementId);
+            tempUser.addOpenAch(tempAchievement);
+            currentSession.saveOrUpdate(tempUser);
+            currentSession.saveOrUpdate(tempAchievement);
+            return "Success";
+        } catch (NullPointerException exc) {
+            return "Data doesn't exist";
+        }
     }
 
     @Override
     public void removeAchievementFromUser(int achievementId, int userId) {
 
-        Session currentSession = entityManager.unwrap(Session.class);
-        User tempUser = currentSession.get(User.class, userId);
-        Achievement tempAchievement = currentSession.get(Achievement.class, achievementId);
-        tempUser.removeOpenAch(tempAchievement);
-        currentSession.saveOrUpdate(tempUser);
-        currentSession.saveOrUpdate(tempAchievement);
+        try {
+            Session currentSession = entityManager.unwrap(Session.class);
+            User tempUser = currentSession.get(User.class, userId);
+            Achievement tempAchievement = currentSession.get(Achievement.class, achievementId);
+            tempUser.removeOpenAch(tempAchievement);
+            currentSession.saveOrUpdate(tempUser);
+            currentSession.saveOrUpdate(tempAchievement);
+        } catch (NullPointerException exc) {
+            System.out.println("Niepoprawne dane");
+        }
+
     }
 
     @Override

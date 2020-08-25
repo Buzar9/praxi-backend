@@ -43,9 +43,9 @@ public class AchievementController {
     }
 
     @PutMapping("{achievementId}/add/user/{userId}")
-    public void addAchievementToUser(@PathVariable int achievementId,
+    public String addAchievementToUser(@PathVariable int achievementId,
                                      @PathVariable int userId){
-        achievementRepositoryImpl.addAchievementToUser(achievementId, userId);
+        return achievementRepositoryImpl.addAchievementToUser(achievementId, userId);
     }
 
     @PutMapping("{achievementId}/remove/user/{userId}")

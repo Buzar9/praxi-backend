@@ -12,7 +12,7 @@ public interface AchievementRepository {
 
     void saveOrUpdate(Achievement tempAchievement);
 
-    void addAchievementToUser(int achievementId, int userId);
+    String addAchievementToUser(int achievementId, int userId);
 
     void removeAchievementFromUser(int achievementId, int userId);
 
