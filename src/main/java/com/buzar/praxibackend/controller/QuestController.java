@@ -3,6 +3,7 @@ package com.buzar.praxibackend.controller;
 import com.buzar.praxibackend.entity.Quest;
 import com.buzar.praxibackend.repository.QuestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,16 +33,20 @@ public class QuestController {
                           @RequestBody Quest tempQuest){
 
         tempQuest.setQuestId(0);
-        questRepositoryImpl.saveOrUpdate(tempQuest, achievementId);
+        questRepositoryImpl.save(tempQuest, achievementId);
     }
 
     @PutMapping("{questId}/achievement/{achievementId}")
-    public void updateQuest(@PathVariable int questId,
+    public String updateQuest(@PathVariable int questId,
                             @PathVariable int achievementId,
                             @RequestBody Quest tempQuest) {
 
         tempQuest.setQuestId(questId);
-        questRepositoryImpl.saveOrUpdate(tempQuest, achievementId);
+        try {
+            return questRepositoryImpl.update(tempQuest, achievementId);
+        } catch (ObjectOptimisticLockingFailureException exc) {
+            return "Data doesn't exist";
+        }
     }
 
     @DeleteMapping("{questId}")
