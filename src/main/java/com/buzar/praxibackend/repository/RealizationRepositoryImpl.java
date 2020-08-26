@@ -1,6 +1,5 @@
 package com.buzar.praxibackend.repository;
 
-import com.buzar.praxibackend.entity.File;
 import com.buzar.praxibackend.entity.Quest;
 import com.buzar.praxibackend.entity.Realization;
 import com.buzar.praxibackend.entity.User;
@@ -73,11 +72,6 @@ public class RealizationRepositoryImpl implements RealizationRepository{
     }
 
     @Override
-    public void addFile(File tempFile) {
-
-    }
-
-    @Override
     public String addRelationQuestReal(int realId, int questId) {
 
         try {
@@ -104,19 +98,6 @@ public class RealizationRepositoryImpl implements RealizationRepository{
         } catch (NullPointerException exc) {
             return "Data doesn't exist";
         }
-    }
-
-    @Override
-    public void addFile(int realId, int fileId) {
-
-        Session currentSession = entityManager.unwrap(Session.class);
-        Realization tempRealization = currentSession.get(Realization.class, realId);
-        Query query = currentSession.createQuery("from File", File.class);
-        List<File> fileList = query.getResultList();
-        File tempFile = currentSession.get(File.class, fileId);
-
-        tempRealization.setImagePath(tempFile.getFileName());
-        tempRealization.addFile(tempFile);
     }
 
     @Override

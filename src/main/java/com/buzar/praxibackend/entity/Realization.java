@@ -37,9 +37,6 @@ public class Realization {
     @Column(name = "image_path")
     private String imagePath;
 
-    @OneToMany(mappedBy = "realization")
-    private List<File> fileList;
-
     public Realization() {
     }
 
@@ -105,20 +102,5 @@ public class Realization {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
-    }
-
-    public List<File> getFileList() {
-        return fileList;
-    }
-
-    public void setFileList(List<File> fileList) {
-        this.fileList = fileList;
-    }
-
-    public void addFile(File theFile) {
-
-        if(fileList == null) fileList = new ArrayList<>();
-        fileList.add(theFile);
-        theFile.setRealization(this);
     }
 }
