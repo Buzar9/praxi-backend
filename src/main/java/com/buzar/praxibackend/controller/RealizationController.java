@@ -2,7 +2,6 @@ package com.buzar.praxibackend.controller;
 
 import com.buzar.praxibackend.entity.Realization;
 import com.buzar.praxibackend.repository.RealizationRepository;
-import com.buzar.praxibackend.service.RealizationFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +14,6 @@ public class RealizationController {
 
     @Autowired
     private RealizationRepository realizationRepositoryImpl;
-
-    @Autowired
-    private RealizationFileService realizationFileService;
 
     @GetMapping
     public List<Realization> realizationList(){
@@ -48,8 +44,6 @@ public class RealizationController {
 
         return realizationRepositoryImpl.save(tempRealization, userId, questId);
     }
-
-
 
     @PutMapping("/{realizationId}/user/{userId}/quest/{questId}")
     public String updateRealization(@PathVariable int realizationId,
